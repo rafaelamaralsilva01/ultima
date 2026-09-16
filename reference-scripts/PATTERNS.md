@@ -51,6 +51,13 @@ Extraído de 4 scripts reais (~938k linhas combinadas de código, dominado pelo 
   ```
 - Qualquer condição `X or Y and Z` sem parênteses é ambígua sobre precedência real do interpretador — se a lógica importa (ex: "ore só conta se tiver forge E ore", não só forge OU ore-com-forge), sempre quebrar em `if` aninhado em vez de confiar em precedência implícita ou tentar agrupar com `()`.
 
+## ID numérico vs nome — regra dura
+
+- **Nunca usar ID numérico de item (`findtype "6585"`) se existir nome equivalente (`findtype "iron ore"`)**. Motivo real: bug confirmado no miner script — ore tem múltiplos gráficos aleatórios, a busca por nome resolve todos, a busca por ID numérico só pega um. Resultado: ore silenciosamente não era transferido pro pack animal na maior parte do tempo.
+- Sinal de alerta forte: um ID numérico aparecendo isolado enquanto o **resto do mesmo script usa nome pro mesmo item** — isso é o padrão exato do bug do `6585`. Sempre que ver isso, tratar como bug até prova em contrário.
+- Uso numérico é **aceitável** quando não existe nome único que cubra todas as variantes gráficas do item (ex: forge tem várias aparências sem nome genérico único, pack animal tamed usa lista de graphic IDs porque nome tipo "horse" é genérico demais/ambíguo). Nesse caso, documentar no comentário por que é ID e não nome.
+- Auditoria feita nos 5 scripts do repo (2026-09-16): únicos usos de ID numérico restantes são forge (`"4017|6526|6538|6550|6562"`), pack animal (`"291|292"`) e listas de reagente/aspect no dexxer — todos justificados (sem nome único cobrindo as variantes). Nenhum outro caso do padrão-bug do `6585` encontrado.
+
 ## Regra prática pra escrever scripts novos aqui
 
 1. Banner de header (nome, versão, requisitos) sempre.
@@ -60,3 +67,4 @@ Extraído de 4 scripts reais (~938k linhas combinadas de código, dominado pelo 
 5. `overhead` com hue consistente por severidade (padronizar: erro/vermelho, sucesso/verde, info/branco).
 6. Qualquer valor específico da conta (nome de runa, serial, nome de personagem) marcado com comentário `# CONFIGURAR` — nunca deixar hardcoded sem aviso.
 7. Nunca usar `()` pra agrupar condições — usar `if` aninhado (ver seção acima).
+8. Nunca usar ID numérico de item se existir nome equivalente (ver seção acima) — e se usar ID por necessidade, comentar o porquê.

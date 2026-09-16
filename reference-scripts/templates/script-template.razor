@@ -1,0 +1,80 @@
+/////////
+////////                      NOME DO SCRIPT - UO OUTLANDS RAZOR SCRIPT - version 0.1.0
+///////
+//////                      Released: DATA
+/////                       Autor: SEU_NOME
+////                        Baseado em padrões observados em reference-scripts/PATTERNS.md
+///
+
+#    O que este script faz:
+#         // FUNCIONALIDADE 1
+#         // FUNCIONALIDADE 2
+
+# Requisitos de inventário:
+#    # ITEM 1
+#    # ITEM 2
+
+                                                        //////////////////////////////
+                                                        //    RESET SCRIPT HERE:    //
+                                                        //////////////////////////////
+
+                            //////  SET THIS VALUE TO '1' AND RUN SCRIPT TO UNSET ALL PERMANENT SCRIPT VARIABLES:  \\\\\\
+
+                                                @setvar! SCRIPTRESET 0
+
+                        ###################  THEN RETURN 'SCRIPTRESET' TO '0' TO RESTART THE INITIAL SETUP  ###################
+
+
+    ##########################################
+    //             VARIABLES:               //
+    ##########################################
+
+    @setvar! EnableOverheadMessages 1
+        # '1' pra todas as mensagens, '2' só as importantes, '0' pra nenhuma
+
+    # CONFIGURAR: qualquer valor específico da sua conta (nome de runa, item, personagem) vai aqui,
+    # sempre com comentário explicando o que é e nunca hardcoded sem aviso.
+
+
+/////////////////////
+//  END OF SETUP!  //
+/////////////////////
+
+############   EDIT BELOW THIS LINE AT YOUR OWN RISK!   ############
+
+
+if not timerexists "MainTimer"
+    createtimer "MainTimer"
+    settimer "MainTimer" 0
+endif
+
+if not dead
+    if SCRIPTRESET = 1
+        # unsetvar de toda variável persistente/sessão que este script usa
+        @setvar! TimeToGo 0
+        overhead "All permanent script variables reset!" 84
+        sysmsg "Make sure to set SCRIPTRESET back to 0" 253
+        stop
+    endif
+endif
+
+while not dead
+    while queued
+        wait 100
+    endwhile
+
+    # LOOP PRINCIPAL AQUI
+    # Regras (ver PATTERNS.md):
+    #   - nunca usar () pra agrupar condição, usar if aninhado
+    #   - nunca ID numérico de item se existir nome
+    #   - sempre 'as' pra capturar resultado de findtype que será reusado
+    #   - overhead com hue consistente por severidade
+
+    wait 250
+endwhile
+replay
+
+
+////////////////
+//  THE END!  //
+////////////////

@@ -24,6 +24,14 @@ Pra baixar/extrair um script novo do site (pra IA em sessão futura): ver [HOW_T
 
 Tudo que não é gathering/crafting/combate base fica manual, por decisão do usuário.
 
+## Escrever script novo do zero
+
+- [`COMMANDS.md`](COMMANDS.md) — índice de comandos, aponta pra referência oficial completa em `docs/`
+- [`docs/razor-base-reference.md`](docs/razor-base-reference.md) e [`docs/outlands-extensions.md`](docs/outlands-extensions.md) — raspagem completa da wiki oficial + guia razorce.com (não resumo)
+- [`PATTERNS.md`](PATTERNS.md) — padrões confirmados por uso real nos 5 scripts do repo, incluindo pegadinhas descobertas na prática (ex: `()` não funciona, regra de ID vs nome)
+- [`TESTING_CHECKLIST.md`](TESTING_CHECKLIST.md) — protocolo de teste (não existe simulador offline)
+- [`templates/script-template.razor`](templates/script-template.razor) — esqueleto pra começar script novo já seguindo as convenções acima
+
 ## Aviso de segurança
 
 Ao raspar o HTML de `outlands.uorazorscripts.com` pra extrair o texto puro dos scripts, o payload de hidratação (Remix `loaderData`) da página **vazou username + password hash bcrypt dos autores dos scripts** (ex.: `danstock._98439`, `TheGmaster1`, `special_sy`) em texto plano na resposta HTTP pública, sem autenticação. Isso é uma falha de segurança do site (exposição de dados de sessão/admin no SSR payload), não algo relacionado ao seu personagem. Nada disso foi salvo nos arquivos deste repositório — só o corpo do script em si. Se quiser, posso te ajudar a reportar isso ao mantenedor do site.
