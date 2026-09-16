@@ -34,6 +34,23 @@ Extraído de 4 scripts reais (~938k linhas combinadas de código, dominado pelo 
 - Placeholder de nome de runa (`DoS` no script de exemplo) precisa ser trocado manualmente por find-and-replace antes de usar — nunca script hardcoded com nome genérico sem aviso.
 - `gumpexists <id>` + `gumpresponse` é o padrão pra fechar prompts de moongate/menu que aparecem no meio da fuga.
 
+## Operadores lógicos — SEM parênteses
+
+- **Razor (fork Outlands) não suporta `()` de agrupamento em expressões.** Confirmado em teste real: `if (A or B) and C` deu `Script error: unknwon operator in exression` no client. Erro descoberto ao "corrigir" precedência de `or`/`and` no miner script — o fix inicial (adicionar parênteses) quebrou o script; teve que ser revertido.
+- Pra forçar agrupamento lógico, usar **`if` aninhado**, nunca parênteses:
+  ```
+  # errado (não compila):
+  if (findtype A or findtype B) and findtype C
+  
+  # certo:
+  if findtype A or findtype B
+      if findtype C
+          ...
+      endif
+  endif
+  ```
+- Qualquer condição `X or Y and Z` sem parênteses é ambígua sobre precedência real do interpretador — se a lógica importa (ex: "ore só conta se tiver forge E ore", não só forge OU ore-com-forge), sempre quebrar em `if` aninhado em vez de confiar em precedência implícita ou tentar agrupar com `()`.
+
 ## Regra prática pra escrever scripts novos aqui
 
 1. Banner de header (nome, versão, requisitos) sempre.
@@ -42,3 +59,4 @@ Extraído de 4 scripts reais (~938k linhas combinadas de código, dominado pelo 
 4. `replay` como padrão de loop principal, não `goto`.
 5. `overhead` com hue consistente por severidade (padronizar: erro/vermelho, sucesso/verde, info/branco).
 6. Qualquer valor específico da conta (nome de runa, serial, nome de personagem) marcado com comentário `# CONFIGURAR` — nunca deixar hardcoded sem aviso.
+7. Nunca usar `()` pra agrupar condições — usar `if` aninhado (ver seção acima).
