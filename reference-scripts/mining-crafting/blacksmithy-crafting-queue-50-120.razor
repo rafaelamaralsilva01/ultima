@@ -21,7 +21,7 @@ gumpclose 'CraftingGump'
 
 @unsetvar 'tool'
 if findtype 'tongs' backpack as tongs
-    @setvar 'tool' 'tongs'
+    @setvar 'tool' tongs
 elseif findtype 'sledge hammer' backpack as sledge
     @setvar 'tool' sledge
 elseif findtype "smith's hammer" backpack as hammer
