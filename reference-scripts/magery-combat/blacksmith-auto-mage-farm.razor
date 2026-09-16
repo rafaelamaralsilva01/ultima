@@ -1,0 +1,170 @@
+/////////
+////////                      BLACKSMITH AUTO MAGE FARM - UO OUTLANDS RAZOR SCRIPT - version 0.1.0
+///////
+//////                      Released: 2026-09-16
+/////                       Autor: você + Claude (baseado em reference-scripts/PATTERNS.md e templates/script-template.razor)
+////
+
+#    O que este script faz:
+#         // Procura alvo hostil próximo (gray/red) e ataca com Magery
+#         // Usa Lightning (9 mana) se tiver mana, senão Magic Arrow (4 mana) como reserva
+#         // Se HP cair demais, chama o script de fuga e para
+#
+#    O que este script NÃO faz (fora de escopo por decisão, não esquecimento):
+#         // Não anda/persegue alvo (sem pathing) - só ataca o que já tá dentro de alcance de target
+#         // Não gerencia reagente (você falou que vai organizar numa bolsa - o cast usa
+#         //   reagente de qualquer lugar da sua backpack automaticamente, não precisa apontar bolsa)
+#         // Não faz PK-tracking (esse personagem é combate ativo, não mineração - ver
+#         //   reference-scripts/mining-crafting/ pro miner com PK-detect embutido)
+
+# Requisitos:
+#    # Magery 60+ (Lightning é circulo 4, Magic Arrow é círculo 1 - ambos liberados)
+#    # Reagentes de Lightning (Mandrake Root + Sulfurous Ash) e Magic Arrow (Sulfurous Ash) na backpack
+#    # Spellbook equipado ou na bolsa
+#    # O script "Ultimate Escape" (reference-scripts/magery-escape/) salvo no Razor com esse
+#      nome exato - é chamado automaticamente se seu HP cair demais
+
+
+                                                        //////////////////////////////
+                                                        //    RESET SCRIPT HERE:    //
+                                                        //////////////////////////////
+
+                            //////  SET THIS VALUE TO '1' AND RUN SCRIPT TO UNSET ALL PERMANENT SCRIPT VARIABLES:  \\\\\\
+
+                                                @setvar! SCRIPTRESET 0
+
+                        ###################  THEN RETURN 'SCRIPTRESET' TO '0' TO RESTART THE INITIAL SETUP  ###################
+
+
+    ##########################################
+    //             VARIABLES:               //
+    ##########################################
+
+    @setvar! EnableOverheadMessages 1
+        # '1' pra todas as mensagens, '2' só as importantes, '0' pra nenhuma
+
+    @setvar! LowHPRetreatThreshold 30
+        # Se a diferença pro seu HP máximo passar disso, o script foge e para
+        # (diffhits = quanto você já perdeu do HP máximo - maior valor = mais ferido)
+
+    @setvar! EnableAutoRecallOnLowHP 1
+        # Desliga a fuga automática por HP baixo (não recomendado desligar sem outro plano de segurança)
+
+    @setvar! RecallScriptName "Ultimate Escape"
+        # Nome exato do script de fuga salvo no Razor (ver reference-scripts/magery-escape/)
+
+
+/////////////////////
+//  END OF SETUP!  //
+/////////////////////
+
+############   EDIT BELOW THIS LINE AT YOUR OWN RISK!   ############
+
+
+if not timerexists "TargetMessageTimer"
+    createtimer "TargetMessageTimer"
+    settimer "TargetMessageTimer" 3500
+endif
+
+if not timerexists "ManaMessageTimer"
+    createtimer "ManaMessageTimer"
+    settimer "ManaMessageTimer" 3500
+endif
+
+if not dead
+    if SCRIPTRESET = 1
+        @setvar! TimeToGo 0
+        overhead "All permanent script variables reset!" 84
+        overhead "Reset SCRIPTRESET back to 0 and restart script..." 0
+        sysmsg "Make sure to set SCRIPTRESET back to 0" 253
+        sysmsg "Stopping script..." 0
+        stop
+    endif
+
+    if not varexist FIRSTRUN
+        sysmsg "Starting Blacksmith Auto Mage Farm......." 0
+        wait 1000
+        overhead "[ AUTO MAGE FARM v0.1.0 ]" 2338
+        wait 1500
+        overhead "IMPT: Magery 60+, reagentes na backpack e 'Ultimate Escape' salvo no Razor!" 153
+        wait 2500
+        @setvar! FIRSTRUN 1
+        sysmsg "Setup complete. Happy farming!" 84
+    endif
+endif
+
+
+while not dead
+    while queued
+        wait 100
+    endwhile
+
+    if EnableAutoRecallOnLowHP = 1 and diffhits > LowHPRetreatThreshold
+        if EnableOverheadMessages != 0
+            overhead "[ LOW HP - RETREATING! ]" 37
+        endif
+        script RecallScriptName
+        stop
+    endif
+
+    if mana < 4
+        if timer "ManaMessageTimer" > 3500 and EnableOverheadMessages = 1
+            overhead "*recovering mana...*" 63
+            settimer "ManaMessageTimer" 0
+        endif
+        wait 1000
+        replay
+    endif
+
+    if mana >= 9
+        cast 'Lightning'
+    else
+        cast 'Magic Arrow'
+    endif
+
+    waitfortarget 3000
+
+    if insysmsg "More reagents are needed"
+        clearsysmsg
+        if EnableOverheadMessages != 0
+            overhead "[ OUT OF REAGENTS! ]" 37
+        endif
+        sysmsg "Stopping - out of reagents" 37
+        stop
+    endif
+
+    if insysmsg "Your concentration is disturbed"
+        clearsysmsg
+        if targetexists
+            target cancel
+        endif
+        wait 250
+        replay
+    endif
+
+    if not targetexists
+        # Cast falhou/sem cursor aberto por outro motivo - tenta de novo
+        wait 250
+        replay
+    endif
+
+    target closest 'gray,red' monster
+
+    if targetexists
+        # Cursor ainda aberto = 'target closest' não achou nada válido
+        target cancel
+        if timer "TargetMessageTimer" > 3500 and EnableOverheadMessages != 0
+            overhead "[ NO TARGET FOUND ]" 353
+            settimer "TargetMessageTimer" 0
+        endif
+        wait 750
+    endif
+
+    wait 250
+endwhile
+replay
+
+
+////////////////
+//  THE END!  //
+////////////////

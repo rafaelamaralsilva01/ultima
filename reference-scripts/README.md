@@ -14,6 +14,7 @@ Pra baixar/extrair um script novo do site (pra IA em sessão futura): ver [HOW_T
 | `mining-crafting/lord-glacier-miner-autopilot-v1.0-lite.razor` | Mineração + auto-forge + auto-recall | Lord Glacier (danstock.\_98439) | 1.0 LITE (2025-07-08) | [link](https://outlands.uorazorscripts.com/script/6535aac0-adc2-4135-94ef-ded481fe71aa) |
 | `mining-crafting/blacksmithy-crafting-queue-50-120.razor` | Progressão de skill Blacksmithy 50→120 via fila de crafting | TheGmaster1 | — (2023, base) | [link](https://outlands.uorazorscripts.com/script/791a9815-cde8-407d-8001-a06160685dd7) |
 | `magery-escape/ultimate-escape-recall-runetome-chivalry.razor` | Fuga de PK: moongate → recall (magery) → sacred journey (chivalry) → runetome/runebook | special_sy (mod: Chumber) | — (2025-06-06) | [link](https://outlands.uorazorscripts.com/script/df86f94a-832a-496d-b65c-34bc2f7f97ab) |
+| `magery-combat/blacksmith-auto-mage-farm.razor` | Farm ativo com Magery 60 (Lightning/Magic Arrow), auto target + auto recall em HP baixo | Escrito por nós (não é da comunidade) | 0.1.0 (2026-09-16) | — |
 
 ## Como usar cada um (linha racional)
 
@@ -21,6 +22,7 @@ Pra baixar/extrair um script novo do site (pra IA em sessão futura): ver [HOW_T
 2. **Craftar itens (XP de Blacksmithy)** → `blacksmithy-crafting-queue-50-120.razor`. Roda parado no forge/anvil consumindo os ingots gerados pelo miner, avançando a skill 50→120 automaticamente por faixa de item.
 3. **Fuga (PK durante mineração)** → `ultimate-escape-recall-runetome-chivalry.razor`. Standalone, focado em Magery (recall) como prioridade — dispara à parte do miner, não substitui o auto-recall QOL que já vem embutido nele. Use quando o auto-recall do miner falhar ou quiser controle manual de hotkey.
 4. **Combate (Dexxer, Swords)** → `dexxer-combat/lord-glacier-dexxer-autopilot-v3.1.1.razor`. Suporta várias armas — ao configurar, focar bloco de `Swords` e desativar os outros weapon-types no setup inicial do script.
+5. **Combate (Blacksmith, Magery 60)** → `magery-combat/blacksmith-auto-mage-farm.razor`. Farm ativo pro personagem de suporte — foge automático via "Ultimate Escape" se HP cair demais. Sem pathing: só ataca o que já tá em alcance de target, não persegue.
 
 Tudo que não é gathering/crafting/combate base fica manual, por decisão do usuário.
 
