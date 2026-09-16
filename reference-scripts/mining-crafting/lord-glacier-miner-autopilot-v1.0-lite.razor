@@ -116,9 +116,15 @@
         @setvar! GreenWarningDiffWeight 50
         @setvar! YellowWarningDiffWeight 25
         @setvar! RedWeightLimitDiffWeight 5
-            # Overhead weight warning message settings 
-        
-        
+            # Overhead weight warning message settings
+
+    @setvar! EnableRedAlertOverhead 0
+        # Extra "!! RED ALERT !!" overhead when a PK is tracked/detected (in addition to EnableOverheadMessages)
+
+    @setvar! SetIngotBagtoOrganizer03 0
+        # Runs 'Organizer Agent-03' automatically while smelting/vacuuming ore (requires that agent configured in Razor)
+
+
 //////////////////////////
 //     AUTO-RECALL:     //
 //////////////////////////
@@ -485,6 +491,13 @@ if not dead
             wait 3000
         endif
     endif
+endif
+
+if not varexist StoreinMainPacky
+    @setvar! StoreinMainPacky 1
+endif
+if not varexist StoreinSecondPacky
+    @setvar! StoreinSecondPacky 1
 endif
 
 while not dead
