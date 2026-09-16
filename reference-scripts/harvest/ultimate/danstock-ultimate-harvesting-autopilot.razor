@@ -206,7 +206,7 @@
                 # PK Radar will only pikcup Reds within target distance (but it is better than nothing)
 
         //  MINING RECALL (ingots):  //
-            if skill "Mining" >= 50 EnableMining = 1
+            if skill "Mining" >= 50 and EnableMining = 1
                 @setvar! EnableIngotAutoRecall 0
                 @setvar! IngotRecallAmount 2500
                 # Will auto recall if ingot total exceeds target!
@@ -1690,7 +1690,7 @@ if not dead
                 endwhile
                 @setvar! RECALLTIME 1
             endif 
-        elseif EnableBoardAutoRecall = 1 or EnableIngotAutoRecall = 1 and AutoRecallTriggered = 1
+        elseif EnableBoardAutoRecall = 1 and AutoRecallTriggered = 1 or EnableIngotAutoRecall = 1 and AutoRecallTriggered = 1
             if EnableDIYRecallScript = 1
                 @setvar! DungeonGateThenTimeToGo 0
                 foreach RecallScript in DIYRecallScriptList
@@ -1720,7 +1720,7 @@ if not dead
                 endfor
             else
                 while mana < 11
-                    if timer "ManaTimer" > 3500 and EnableOverheadMessages =! 0
+                    if timer "ManaTimer" > 3500 and EnableOverheadMessages != 0
                         overhead "*waiting for mana...*" 12
                         settimer "ManaTimer" 0
                     endif  
@@ -1954,7 +1954,7 @@ if not dead
                         if EnableOverheadMessages = 1
                             overhead "[ ESCAPE CANCELLED! ]" 88
                         elseif EnableOverheadMessages = 2
-                            overhead " Ï " 88
+                            overhead " ï¿½ " 88
                         endif
                         replay
                     endif 
@@ -2059,13 +2059,13 @@ if not dead
                             if EnableOverheadMessages = 1 
                                 overhead "[ GET CLOSER! ]" 69
                             elseif EnableOverheadMessages = 2
-                                overhead " Ï " 69
+                                overhead " ï¿½ " 69
                             endif
                             settimer "TargetTimer" 0
                         endif
 
                         if timer "NoTargetTimer" > 3500 and EnableOverheadMessages != 0
-                            overhead " ¼ " 253 EscapeGate
+                            overhead " ï¿½ " 253 EscapeGate
                             settimer "NoTargetTimer" 0
                         endif
                     else 
@@ -2073,7 +2073,7 @@ if not dead
                             if EnableOverheadMessages = 1 
                                 overhead "[ GET TO A GATE... ]" 253
                             elseif EnableOverheadMessages = 2
-                                overhead " Ï " 253
+                                overhead " ï¿½ " 253
                             endif
                             settimer "TargetTimer" 0
                         endif 
@@ -2439,9 +2439,9 @@ if not dead
                         elseif "[0/4000" in TwoPackyLabel
                             // Do nothing
                         else
-                            dclick mySecondPackAnimal 
+                            dclick mySecondPackAnimal
                             wait 500
-                            while findtype "iron ore" myMainPackAnimal as twopackyoretosmelt
+                            while findtype "iron ore" mySecondPackAnimal as twopackyoretosmelt
                                 dclick twopackyoretosmelt
                                 if timer "PackySmeltTimer" > 3500 and EnableOverheadMessages != 0 
                                     overhead "*smelting from pack animal...*" 2114 mySecondPackAnimal 
@@ -5302,11 +5302,11 @@ if not dead
                 if EnableOverheadMessages = 1
                     overhead "[ $ ]" 149 droppedmoney
                 endif 
-                overhead "¼" 149 droppedmoney
+                overhead "ï¿½" 149 droppedmoney
                 settimer "GoldRadar" 0
             endif
             while findtype "gold coin" ground -1 -1 2 as finderskeepers          
-                overhead " ² " 149
+                overhead " ï¿½ " 149
                 hotkey "Grab Item"
                 wft 2500
                 target finderskeepers
@@ -5379,7 +5379,7 @@ if not dead
 
         if insysmsg "As the owner" or insysmsg "Your house and its contents"
             wait 1000
-            if find MyDoor ground -1 -1 2 and CloseMyDoor = 1
+            if find MyDoor ground -1 -1 2 and EnableCloseMyDoor = 1
                 if EnableOverheadMessages != 0
                     overhead "*door slams!*" 0 MyDoor
                 endif
@@ -5594,18 +5594,18 @@ if not dead
                         if timer "TargetTimer" > 4000
                             if EnableOverheadMessages = 1
                                 if "Paragon" in TargetDesc
-                                    overhead " ¼ PARAGON! ¼ " 12 CurrentTarget 
+                                    overhead " ï¿½ PARAGON! ï¿½ " 12 CurrentTarget 
                                     settimer "TargetTimer" 0
                                 else 
-                                    overhead " ¼ TARGET ¼ " 253 CurrentTarget 
+                                    overhead " ï¿½ TARGET ï¿½ " 253 CurrentTarget 
                                     settimer "TargetTimer" 0
                                 endif   
                             elseif EnableOverheadMessages = 2
                                 if "Paragon" in TargetDesc
-                                    overhead " ¼ " 12 CurrentTarget 
+                                    overhead " ï¿½ " 12 CurrentTarget 
                                     settimer "TargetTimer" 0
                                 else 
-                                    overhead " ¼ " 253 CurrentTarget 
+                                    overhead " ï¿½ " 253 CurrentTarget 
                                     settimer "TargetTimer" 0
                                 endif
                             endif 
@@ -6332,7 +6332,7 @@ if not dead
                     if EnableOverheadMessages = 1
                         overhead "[ CODEX POINT UNLOCKED! ]" 2114
                     elseif EnableOverheadMessages = 2
-                        overhead "² CODEX ²" 2114
+                        overhead "ï¿½ CODEX ï¿½" 2114
                     endif 
                     if EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1
                         wait 1000
@@ -6345,7 +6345,7 @@ if not dead
                     if EnableOverheadMessages = 1
                         overhead "[ GRIMOIRE POINT UNLOCKED! ]" 7
                     elseif EnableOverheadMessages = 2
-                        overhead "² GRIMOIRE ²" 7
+                        overhead "ï¿½ GRIMOIRE ï¿½" 7
                     endif 
                     if EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1
                         wait 1000
@@ -6358,7 +6358,7 @@ if not dead
                     if EnableOverheadMessages = 1
                         overhead "[ ASPECT TIER UNLOCKED! ]" 2086
                     elseif EnableOverheadMessages = 2
-                        overhead "² ASPECT ²" 2086
+                        overhead "ï¿½ ASPECT ï¿½" 2086
                     endif 
                     if EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1
                         wait 500
@@ -6368,7 +6368,7 @@ if not dead
                     endif
                 endif
 
-                if insysmsg "upgrade point for Fire Elemental" or insysmsg  "upgrade point for Air Elemental"  or insysmsg  "upgrade point for Water Elemental" or insysmsg  "upgrade point for Earth Elemental" and EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1
+                if insysmsg "upgrade point for Fire Elemental" and EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1 or insysmsg  "upgrade point for Air Elemental" and EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1 or insysmsg  "upgrade point for Water Elemental" and EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1 or insysmsg  "upgrade point for Earth Elemental" and EnableSummons = 1 and followers >= 1 and EnableOverheadMessages = 1
                     overhead "Hmm.. I suddenly feel stronger!" 44 myMainTankPet
                     menu myMainTankPet 3
                     wait 500
@@ -6398,7 +6398,7 @@ if not dead
                         if diffhits > 30 
                             break
                         elseif timer "MeditatingTimer" > 5000 
-                            if EnableOverheadMessages = != 0 
+                            if EnableOverheadMessages != 0 
                                 overhead "*meditating...*" 10
                             endif
                             settimer "MeditatingTimer" 0
@@ -7017,8 +7017,9 @@ if not dead
             cooldown "Travel" 7000
             settimer "TravelTimer" 53000
             @setvar! TravelCooldownActive 0
-            clearsysmsg 
-            replay                     
+            clearsysmsg
+            replay
+        elseif insysmsg "must wait 6"
             if EnableOverheadMessages = 1
                 overhead "I am tired from travelling..." 2086
                 wait 1500 
@@ -7185,9 +7186,9 @@ if not dead
             if findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
                 if EnableOverheadMessages = 1
                     overhead "[ FORGE ]" 44 forge
-                    overhead "¼" 44 forge
+                    overhead "ï¿½" 44 forge
                 elseif EnableOverheadMessages = 2
-                    overhead "¼" 44 forge
+                    overhead "ï¿½" 44 forge
                 endif 
                 settimer "ForgeRadar" 0
             endif 
@@ -7197,9 +7198,9 @@ if not dead
             if findtype "iron ore" ground -1 -1 15 as droppedore and timer "OreRadar" > 3500 
                 if EnableOverheadMessages = 1
                     overhead "[ ORE ]" 93 droppedore             
-                    overhead "¼" 93 droppedore
+                    overhead "ï¿½" 93 droppedore
                 elseif EnableOverheadMessages = 2
-                    overhead "¼" 93 droppedore
+                    overhead "ï¿½" 93 droppedore
                 endif
                 settimer "OreRadar" 0
             endif
@@ -7207,9 +7208,9 @@ if not dead
             if findtype "iron ingot%s" ground -1 -1 15 as droppedingots and timer "IngotRadar" > 3500 
                 if EnableOverheadMessages = 1  
                     overhead "[ INGOTS ]" 69 droppedingots              
-                    overhead "¼" 69 droppedingots
+                    overhead "ï¿½" 69 droppedingots
                 elseif EnableOverheadMessages = 2
-                    overhead "¼" 69 droppedingots
+                    overhead "ï¿½" 69 droppedingots
                 endif 
                 settimer "IngotRadar" 0
             endif
@@ -7485,9 +7486,9 @@ if not dead
                         elseif "[0/4000" in TwoPackyLabel
                             // Do nothing
                         else
-                            dclick mySecondPackAnimal 
+                            dclick mySecondPackAnimal
                             wait 500
-                            while findtype "iron ore" myMainPackAnimal as twopackyoretosmelt
+                            while findtype "iron ore" mySecondPackAnimal as twopackyoretosmelt
                                 dclick twopackyoretosmelt
                                 if timer "PackySmeltTimer" > 3500 and EnableOverheadMessages != 0 
                                     overhead "*smelting from pack animal...*" 2114 mySecondPackAnimal 
@@ -7571,9 +7572,9 @@ if not dead
                         elseif "[0/4000" in TwoPackyLabel
                             // Do nothing
                         else
-                            dclick mySecondPackAnimal 
+                            dclick mySecondPackAnimal
                             wait 500
-                            while findtype "iron ore" myMainPackAnimal as twopackyoretosmelt
+                            while findtype "iron ore" mySecondPackAnimal as twopackyoretosmelt
                                 dclick twopackyoretosmelt
                                 if timer "PackySmeltTimer" > 3500 and EnableOverheadMessages != 0 
                                     overhead "*smelting from pack animal...*" 2114 mySecondPackAnimal 
@@ -7921,25 +7922,25 @@ if not dead
         
             if EnablePlayerForgeRadar = 1
                 if findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
-                    overhead "¼" 44 forge
+                    overhead "ï¿½" 44 forge
                     settimer "ForgeRadar" 0
                 endif 
             endif
      
             if EnableOreVacuum = 1
                 if findtype "iron ore" ground -1 -1 15 as droppedore and timer "OreRadar" > 3500            
-                    overhead "¼" 93 droppedore
+                    overhead "ï¿½" 93 droppedore
                     settimer "OreRadar" 0
                 endif
                 if findtype "iron ingot%s" ground -1 -1 15 as droppedingots and timer "IngotRadar" > 3500                
-                    overhead "¼" 69 droppedingots
+                    overhead "ï¿½" 69 droppedingots
                     settimer "IngotRadar" 0
                 endif
             endif 
 
             if EnableGoldVacuum = 1
                 if findtype "gold coin" ground -1 -1 12 as droppedmoney and timer "GoldRadar" > 3500
-                    overhead "¼" 149 droppedmoney
+                    overhead "ï¿½" 149 droppedmoney
                     settimer "GoldRadar" 0
                 endif
             endif 
@@ -9307,10 +9308,10 @@ if not dead
                                 getlabel DungeonChest descChest
                                 if "lock" in descChest
                                     overhead "descChest" 69 DungeonChest
-                                    overhead "¼" 69 DungeonChest 
+                                    overhead "ï¿½" 69 DungeonChest 
                                     settimer "ChestRadar" 0
                                 else 
-                                    overhead "„" 34 DungeonChest
+                                    overhead "ï¿½" 34 DungeonChest
                                     settimer "ChestRadar" 0
                                 endif
                             endif
@@ -9549,11 +9550,11 @@ if not dead
                             if EnableOverheadMessages = 1
                                 overhead "[ $ ]" 149 droppedmoney
                             endif 
-                            overhead "¼" 149 droppedmoney
+                            overhead "ï¿½" 149 droppedmoney
                             settimer "GoldRadar" 0
                         endif
                         while findtype "gold coin" ground -1 -1 2 as finderskeepers          
-                            overhead " ² " 149
+                            overhead " ï¿½ " 149
                             hotkey "Grab Item"
                             wft 2500
                             target finderskeepers
@@ -9569,7 +9570,7 @@ if not dead
                     if EnableDungeonCleanup = 1 
                         if findtype "iron ingot%s|board%s|cut up leather|Ginseng|Garlic|Blood Moss|Sulfurous Ash|Mandrake Root%s%|Nightshade|Black Pearl%s%|Spider's Silk" ground -1 -1 18 as AnotherMansTreasure and timer "DungeonCleanupRadar" > 3500   
                             # '
-                            overhead "¼" 333 AnotherMansTreasure
+                            overhead "ï¿½" 333 AnotherMansTreasure
                             settimer "DungeonCleanupRadar" 0
                         endif
                         while findtype "iron ingot%s|board%s|cut up leather|Ginseng|Garlic|Blood Moss|Sulfurous Ash|Mandrake Root%s%|Nightshade|Black Pearl%s%|Spider's Silk" ground -1 -1 2 as AnotherMansTreasure and timer "DungeonCleanupTimer" > 500
@@ -9615,11 +9616,11 @@ if not dead
                     if EnableOverheadMessages = 1
                         overhead "[ $ ]" 149 droppedmoney
                     endif 
-                    overhead "¼" 149 droppedmoney
+                    overhead "ï¿½" 149 droppedmoney
                     settimer "GoldRadar" 0
                 endif
                 while findtype "gold coin" ground -1 -1 2 as finderskeepers          
-                    overhead " ² " 149
+                    overhead " ï¿½ " 149
                     hotkey "Grab Item"
                     wft 2500
                     target finderskeepers
@@ -9635,7 +9636,7 @@ if not dead
             if EnableDungeonCleanup = 1 
                 if findtype "iron ingot%s|board%s|cut up leather|Ginseng|Garlic|Blood Moss|Sulfurous Ash|Mandrake Root%s%|Nightshade|Black Pearl%s%|Spider's Silk" ground -1 -1 18 as AnotherMansTreasure and timer "DungeonCleanupRadar" > 3500   
                     # '    
-                    overhead "¼" 333 AnotherMansTreasure
+                    overhead "ï¿½" 333 AnotherMansTreasure
                     settimer "DungeonCleanupRadar" 0
                 endif
                 while findtype "iron ingot%s|board%s|cut up leather|Ginseng|Garlic|Blood Moss|Sulfurous Ash|Mandrake Root%s%|Nightshade|Black Pearl%s%|Spider's Silk" ground -1 -1 2 as AnotherMansTreasure and timer "DungeonCleanupTimer" > 500
@@ -9665,10 +9666,10 @@ if not dead
                         getlabel DungeonChest descChest
                         if "lock" in descChest
                             overhead "descChest" 69 DungeonChest
-                            overhead "¼" 69 DungeonChest 
+                            overhead "ï¿½" 69 DungeonChest 
                             settimer "ChestRadar" 0
                         else 
-                            overhead "„" 34 DungeonChest
+                            overhead "ï¿½" 34 DungeonChest
                             settimer "ChestRadar" 0
                         endif
                     endif
@@ -9817,7 +9818,7 @@ if not dead
             endif
             
             if timer "TargetTimer" > 2500 and EnableOverheadMessages != 0
-                overhead "Œ WAIT... Œ" 253
+                overhead "ï¿½ WAIT... ï¿½" 253
                 settimer "TargetTimer" 0
             endif 
             
@@ -9853,10 +9854,10 @@ if not dead
                         getlabel DungeonChest descChest
                         if "lock" in descChest
                             overhead "descChest" 69 DungeonChest
-                            overhead "¼" 69 DungeonChest 
+                            overhead "ï¿½" 69 DungeonChest 
                             settimer "ChestRadar" 0
                         else 
-                            overhead "„" 34 DungeonChest
+                            overhead "ï¿½" 34 DungeonChest
                             settimer "ChestRadar" 0
                         endif
                     endif 
@@ -9865,7 +9866,7 @@ if not dead
             
             if insysmsg "You feel comfortable enough"
                 if EnableOverheadMessages != 0
-                    overhead "Œ READY! Œ" 69
+                    overhead "ï¿½ READY! ï¿½" 69
                 endif 
                 settimer "TargetTimer" 0
                 clearsysmsg 
@@ -9886,7 +9887,7 @@ if not dead
                     endif 
                     
                     if timer "TargetTimer" > 4000 and EnableOverheadMessages != 0
-                        overhead "Œ . . .  Œ" 69
+                        overhead "ï¿½ . . .  ï¿½" 69
                         settimer "TargetTimer" 0
                     endif
                     
@@ -9903,10 +9904,10 @@ if not dead
                                 getlabel DungeonChest descChest
                                 if "lock" in descChest
                                     overhead "descChest" 69 DungeonChest
-                                    overhead "¼" 69 DungeonChest 
+                                    overhead "ï¿½" 69 DungeonChest 
                                     settimer "ChestRadar" 0
                                 else 
-                                    overhead "„" 34 DungeonChest
+                                    overhead "ï¿½" 34 DungeonChest
                                     settimer "ChestRadar" 0
                                 endif
                             endif
@@ -9920,7 +9921,7 @@ if not dead
                     
                     if insysmsg "You begin to move quietly"
                         if EnableOverheadMessages != 0
-                            overhead "Œ START Œ" 69 
+                            overhead "ï¿½ START ï¿½" 69 
                         endif 
                         settimer "StealthCheck" 0
                         settimer "TargetTimer" 0
@@ -9996,7 +9997,7 @@ if not dead
                 if KeepOnTruckin = 1 or insysmsg "You feel ready to continue stealthing."
                     @setvar! KeepOnTruckin 0
                     if timer "TargetTimer" > 2500 and EnableOverheadMessages != 0 
-                        overhead "Œ KEEP GOING! Œ" 69
+                        overhead "ï¿½ KEEP GOING! ï¿½" 69
                         settimer "TargetTimer" 0
                     endif 
                     clearsysmsg 
@@ -10004,7 +10005,7 @@ if not dead
                     clearsysmsg 
                     while timer "StealthCheck" < 10500
                         if timer "StealthTimer" > 500 and EnableOverheadMessages != 0
-                            overhead "Œ SLOW... Œ" 149
+                            overhead "ï¿½ SLOW... ï¿½" 149
                             settimer "StealthTimer" 0        
                             settimer "TargetTimer" 0
                             clearsysmsg 
@@ -10025,20 +10026,20 @@ if not dead
                                 @setvar! KeepOnTruckin 0
 
                                 if timer "TargetTimer" > 2500 and EnableOverheadMessages != 0
-                                    overhead "Œ KEEP GOING! Œ" 69
+                                    overhead "ï¿½ KEEP GOING! ï¿½" 69
                                     settimer "TargetTimer" 0
                                 endif 
                             else 
                                 while timer "StealthCheck" < 10500
                                     if timer "StealthTimer" > 500 and EnableOverheadMessages != 0
-                                        overhead "Œ STOP! Œ" 37
+                                        overhead "ï¿½ STOP! ï¿½" 37
                                         settimer "StealthTimer" 0      
                                         settimer "TargetTimer" 0
                                         clearsysmsg 
                                     endif
 
                                     if insysmsg "You feel ready to continue stealthing" and EnableOverheadMessages != 0
-                                        overhead "Œ READY! Œ" 69
+                                        overhead "ï¿½ READY! ï¿½" 69
                                         settimer "TargetTimer" 0
                                         wait 500
                                         clearsysmsg 
@@ -10063,10 +10064,10 @@ if not dead
                                     getlabel DungeonChest descChest
                                     if "lock" in descChest
                                         overhead "descChest" 69 DungeonChest
-                                        overhead "¼" 69 DungeonChest 
+                                        overhead "ï¿½" 69 DungeonChest 
                                         settimer "ChestRadar" 0
                                     else 
-                                        overhead "„" 34 DungeonChest
+                                        overhead "ï¿½" 34 DungeonChest
                                         settimer "ChestRadar" 0
                                     endif
                                 endif 
@@ -10077,14 +10078,14 @@ if not dead
             endif  
 
             if insysmsg "You feel ready to continue stealthing" and EnableOverheadMessages != 0
-                overhead "Œ READY! Œ" 69
+                overhead "ï¿½ READY! ï¿½" 69
                 settimer "TargetTimer" 0
                 wait 500
                 clearsysmsg 
             endif
 
             if timer "TargetTimer" > 4000 and not cooldown "Hiding" and timer "StealthCheck" > 10500 and EnableOverheadMessages != 0
-                overhead "Ï" 69
+                overhead "ï¿½" 69
                 settimer "TargetTimer" 0
             endif
 
@@ -10100,12 +10101,12 @@ if not dead
                     if EnableOverheadMessages = 1
                         overhead "[ $ ]" 149 droppedmoney
                     endif 
-                    overhead "¼" 149 droppedmoney
+                    overhead "ï¿½" 149 droppedmoney
                     settimer "GoldRadar" 0
                 endif
                 
                 while findtype "gold coin" ground -1 -1 2 as finderskeepers          
-                    overhead " ² " 149
+                    overhead " ï¿½ " 149
                     hotkey "Grab Item"
                     wft 2500
                     target finderskeepers
@@ -10121,7 +10122,7 @@ if not dead
             if EnableDungeonCleanup = 1 
                 if findtype "iron ingot%s|board%s|cut up leather|Ginseng|Garlic|Blood Moss|Sulfurous Ash|Mandrake Root%s%|Nightshade|Black Pearl%s%|Spider's Silk" ground -1 -1 18 as AnotherMansTreasure and timer "DungeonCleanupRadar" > 3500   
                     # '
-                    overhead "¼" 333 AnotherMansTreasure
+                    overhead "ï¿½" 333 AnotherMansTreasure
                     settimer "DungeonCleanupRadar" 0
                 endif
                 
@@ -10153,10 +10154,10 @@ if not dead
                         getlabel DungeonChest descChest
                         if "lock" in descChest
                             overhead "descChest" 69 DungeonChest
-                            overhead "¼" 69 DungeonChest 
+                            overhead "ï¿½" 69 DungeonChest 
                             settimer "ChestRadar" 0
                         else 
-                            overhead "„" 34 DungeonChest
+                            overhead "ï¿½" 34 DungeonChest
                             settimer "ChestRadar" 0
                         endif
                     endif
@@ -10285,7 +10286,7 @@ elseif dead
 
         if findtype "blue moongate|30528|moongate" ground -1 -1 12 as EscapeGate and EnableOverheadMessages != 0
             if timer "TargetTimer" > 1000
-                overhead " ¼ " 253 EscapeGate
+                overhead " ï¿½ " 253 EscapeGate
                 settimer "TargetTimer" 0
             endif 
         endif
