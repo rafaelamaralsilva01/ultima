@@ -4,6 +4,8 @@ Corpus de scripts reais da comunidade, usado como **base de referência de sinta
 
 Build alvo: **Dexxer (Swords)** + **Blacksmith/Miner (Mining + Blacksmithy + Magery escape)**.
 
+Pra baixar/extrair um script novo do site (pra IA em sessão futura): ver [HOW_TO_FETCH_SCRIPTS.md](HOW_TO_FETCH_SCRIPTS.md) antes de tentar via WebFetch genérico — a página não expõe o script em HTML simples.
+
 ## Índice
 
 | Arquivo | Categoria | Autor | Versão | Fonte |
