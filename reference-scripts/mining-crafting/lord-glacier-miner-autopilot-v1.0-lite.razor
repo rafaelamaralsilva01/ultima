@@ -1701,9 +1701,9 @@ while not dead
         
         if EnablePackAnimals = 1 and idonthaveapacky != 1
             if find myMainPackAnimal ground -1 -1 12       
-                if findtype "6585" backpack as oretostoreinpacky and StoreinMainPacky = 1
+                if findtype "iron ore" backpack as oretostoreinpacky and StoreinMainPacky = 1
                     if counttype oretostoreinpacky > OreTransfertoPackyAmount and OreTransfertoPackyAmount != 0 
-                        while findtype "6585" as oretostoreinpacky backpack 
+                        while findtype "iron ore" as oretostoreinpacky backpack 
                             lift oretostoreinpacky 60000
                             if timer "PackyStorageTimer" > 3500 and EnableOverheadMessages != 0
                                 overhead "*moving ore to pack animal...*" 349
@@ -1713,7 +1713,7 @@ while not dead
                             wait 650   
                         endwhile 
                     elseif diffweight < TransfertoPackyWeightDiff and TransfertoPackyWeightDiff != 0 
-                        while findtype "6585" as oretostoreinpacky backpack 
+                        while findtype "iron ore" as oretostoreinpacky backpack 
                             lift oretostoreinpacky 60000
                             if timer "PackyStorageTimer" > 3500 and EnableOverheadMessages != 0
                                 overhead "*moving ore to pack animal...*" 349
@@ -1723,9 +1723,9 @@ while not dead
                             wait 650   
                         endwhile 
                     endif        
-                elseif findtype "6585" backpack as oretostoreinpacky and StoreinSecondPacky = 1
+                elseif findtype "iron ore" backpack as oretostoreinpacky and StoreinSecondPacky = 1
                     if counttype oretostoreinpacky > OreTransfertoPackyAmount and OreTransfertoPackyAmount != 0 
-                        while findtype "6585" as oretostoreinpacky backpack 
+                        while findtype "iron ore" as oretostoreinpacky backpack 
                             lift oretostoreinpacky 60000
                             if timer "PackyStorageTimer" > 3500 and EnableOverheadMessages != 0
                                 overhead "*moving ore to pack animal...*" 349
@@ -1735,7 +1735,7 @@ while not dead
                             wait 650   
                         endwhile 
                     elseif diffweight < TransfertoPackyWeightDiff and TransfertoPackyWeightDiff != 0 
-                        while findtype "6585" as oretostoreinpacky backpack 
+                        while findtype "iron ore" as oretostoreinpacky backpack 
                             lift oretostoreinpacky 60000
                             if timer "PackyStorageTimer" > 3500 and EnableOverheadMessages != 0 
                                 overhead "*moving ore to pack animal...*" 349
