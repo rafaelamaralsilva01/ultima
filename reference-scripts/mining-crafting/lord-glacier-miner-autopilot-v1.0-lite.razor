@@ -1553,7 +1553,7 @@ while not dead
         endif
 
         if EnablePlayerForgeRadar = 1
-            if findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
+            if (findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge) and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
                 if EnableOverheadMessages = 1
                     overhead "[ FORGE ]" 44 forge
                     overhead "▼" 44 forge
@@ -1798,7 +1798,7 @@ while not dead
         endif
 
         if EnableAutoSmeltPlayerForge = 1
-            if findtype "forge" ground -1 -1 2 as forge or findtype 0x0FB1 ground -1 -1 2 as forge and findtype "iron ore" backpack as ore
+            if (findtype "forge" ground -1 -1 2 as forge or findtype 0x0FB1 ground -1 -1 2 as forge) and findtype "iron ore" backpack as ore
                 while findtype "iron ore" backpack as ore 
                     if timer "SmeltingTimer" > 3500 and EnableOverheadMessages != 0
                         overhead "*smelting ore...*" 2114 forge
@@ -2280,7 +2280,7 @@ while not dead
             endif 
         
             if EnablePlayerForgeRadar = 1
-                if findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
+                if (findtype "4017|6526|6538|6550|6562" ground -1 -1 15 as forge or findtype 0x0FB1 ground -1 -1 15 as forge) and findtype "iron ore" backpack and timer "ForgeRadar" > 3500
                     overhead "▼" 44 forge
                     settimer "ForgeRadar" 0
                 endif 
